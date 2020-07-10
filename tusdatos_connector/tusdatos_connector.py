@@ -197,3 +197,24 @@ class TusDatosConnector:
         in the endpoint /api/results/{job-id}.
         """
         return self.api_get(f"/api/report_json/{payload}")
+
+    def get_plans(self):
+        """In this endpoint you can check the status of the user's current plan. To know the status of
+        the plan you must send a get request without parameters.
+
+        Successful Response Schema
+
+          {
+            "amount": 0,
+            "purchase_amount": 0,
+            "purchase_date": "string",
+            "user": "string"
+          }
+        """
+        return self.api_get("/api/plans")
+
+    def get_querys(self):
+        """In this endpoint you can consult the number of previous consultations made by the user.
+        To know the number of queries a get request without parameters must be sent.
+        """
+        return self.api_get("/api/querys")
