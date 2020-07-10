@@ -118,3 +118,82 @@ class TusDatosConnector:
           }
         """
         return self.api_post("/api/launch/car", payload)
+
+    def retry(self, payload):
+        """Retry the consultation to load the sources that presented some error, this end point
+        does not discount consultations of the plan. We must send the oid of the report delivered
+        by the endpoint /api/results previously, as well as the type of document (CC, CE, PEP, NAME, PP, NIT).
+
+        :param payload: Required.
+                        The parameter recieves a dictionary with the following keys:
+                        {"id": string, "typedoc": type}
+
+        Successful Response Schema
+
+          {
+            "doc": 0,
+            "jobid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          }
+        """
+        return self.api_get(f"/api/retry/{payload}")
+
+    def results(self, payload):
+        """Consultation of the status of the task currently running. This endpoint returns the status
+        and result of a given task in execution. Considerations:
+        - The jobid is delivered by the endpoint /api/launch.
+        - The jobid has a validity of 4 hours, at the end of this time the endpoint answers that the task is invalid.
+        Successful Response Schema
+
+          {
+            "cedula": 0,
+            "error": true,
+            "errores": [
+              "string"
+            ],
+            "estado": "string",
+            "hallazgo": true,
+            "hallazgos": "string",
+            "id": "string",
+            "nombre": "string",
+            "results": {},
+            "time": 0,
+            "typedoc": "string",
+            "validado": true
+          }
+        """
+        return self.api_get(f"/api/results/{payload}")
+
+    def report(self, payload):
+        """In this endpoint the report's html is generated. To receive the html you must send a get request
+        with the id of the desired report. The id of the report is obtained from the result of the query in
+        the endpoint /api/results/{job-id}.
+        """
+        return self.api_get(f"/api/report/{payload}")
+
+    def report_pdf(self, payload):
+        """This endpoint generates a pdf file of the report. In order to receive the pdf, a get request
+        must be sent with the id of the desired report. The id of the report is obtained from the result of
+        the query in the endpoint /api/results/{job-id}.
+        """
+        return self.api_get(f"/api/report_pdf/{payload}")
+
+    def report_nit(self, payload):
+        """This endpoint generates the html of the business report. To receive the html you must send a
+        get request with the id of the desired report. The id of the report is obtained from the result
+        of the consultation in the endpoint /api/results/{job-id}.
+        """
+        return self.api_get(f"/api/report_nit/{payload}")
+
+    def report_nit_pdf(self, payload):
+        """This endpoint generates a pdf file of the business report. To receive the pdf file, you must
+        send a get request with the id of the desired report. The id of the report is obtained from the
+        result of the consultation in the endpoint /api/results/{job-id}.
+        """
+        return self.api_get(f"/api/report_nit_pdf/{payload}")
+
+    def report_json(self, payload):
+        """In this endpoint the report json is generated. To receive the json, you must send a get request
+        with the id of the desired report. The id of the report is obtained from the result of the query
+        in the endpoint /api/results/{job-id}.
+        """
+        return self.api_get(f"/api/report_json/{payload}")
