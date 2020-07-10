@@ -41,16 +41,6 @@ class TusDatosConnector:
         :param payload: Required.
                         The parameter recieves a dictionary with the following keys:
                         {"doc": int, "typedoc": type, "fechaE": date as a string DD/MM/AAAA}
-
-        Successful Response Schema:
-          {
-            "email": "string",
-            "doc": 0,
-            "jobid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "nombre": "string",
-            "typedoc": "string",
-            "validado": true
-          }
         """
         return self.api_post("/api/launch", payload)
 
@@ -62,17 +52,6 @@ class TusDatosConnector:
         :param payload: Required.
                         The parameter recieves a dictionary with the following keys:
                         {"doc": int, "typedoc": type, "fechaE": date as a string DD/MM/AAAA}
-
-        Successful Response Schema
-
-          {
-            "email": "string",
-            "doc": 0,
-            "jobid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "nombre": "string",
-            "typedoc": "string",
-            "validado": true
-          }
 """
         return self.api_post("/api/launch/verify", payload)
 
@@ -84,38 +63,6 @@ class TusDatosConnector:
         :param payload: Required.
                         The parameter recieves a dictionary with the following keys:
                         {"doc": int, "typedoc": type, "placa": string}
-
-        Successful Response Schema
-
-          {
-            "jobid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "revision": {
-              "fechaRevision": "string",
-              "fechaVencimiento": "string",
-              "noRevision": "string",
-              "placa": "string",
-              "reqrtm": true,
-              "valido": true,
-              "vigente": true
-            },
-            "soat": {
-              "fechaExpedicion": "string",
-              "fechaInicio": "string",
-              "fechaVencimiento": "string",
-              "noSoat": "string",
-              "valido": true,
-              "vigente": true
-            },
-            "vehiculo": {
-              "color": "string",
-              "estado": "string",
-              "fmatri": "string",
-              "linea": "string",
-              "marca": "string",
-              "placa": "string",
-              "valido": true
-            }
-          }
         """
         return self.api_post("/api/launch/car", payload)
 
@@ -127,13 +74,6 @@ class TusDatosConnector:
         :param payload: Required.
                         The parameter recieves a dictionary with the following keys:
                         {"id": string, "typedoc": type}
-
-        Successful Response Schema
-
-          {
-            "doc": 0,
-            "jobid": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-          }
         """
         return self.api_get(f"/api/retry/{payload}")
 
@@ -142,24 +82,6 @@ class TusDatosConnector:
         and result of a given task in execution. Considerations:
         - The jobid is delivered by the endpoint /api/launch.
         - The jobid has a validity of 4 hours, at the end of this time the endpoint answers that the task is invalid.
-        Successful Response Schema
-
-          {
-            "cedula": 0,
-            "error": true,
-            "errores": [
-              "string"
-            ],
-            "estado": "string",
-            "hallazgo": true,
-            "hallazgos": "string",
-            "id": "string",
-            "nombre": "string",
-            "results": {},
-            "time": 0,
-            "typedoc": "string",
-            "validado": true
-          }
         """
         return self.api_get(f"/api/results/{payload}")
 
@@ -201,15 +123,6 @@ class TusDatosConnector:
     def get_plans(self):
         """In this endpoint you can check the status of the user's current plan. To know the status of
         the plan you must send a get request without parameters.
-
-        Successful Response Schema
-
-          {
-            "amount": 0,
-            "purchase_amount": 0,
-            "purchase_date": "string",
-            "user": "string"
-          }
         """
         return self.api_get("/api/plans")
 
