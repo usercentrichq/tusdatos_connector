@@ -196,12 +196,13 @@ connector.url = "http://docs.tusdatos.co"
 
 
 def test_launch():
-    """Testing launch endpoint."""
+    """Testing TusDatosConnector class method call to /api/launch endpoint."""
     response = connector.launch(validate_cc)
     assert response == validate_cc_resp
 
 
 def test_verify():
+    """Testing TusDatosConnector class method call to /api/launch/verify endpoint."""
     response = connector.launch_verify(verify_cc)
     unvalid_response = {
         "detail": [
@@ -219,40 +220,52 @@ def test_verify():
 
 
 def test_car():
+    """Testing TusDatosConnector class method call to /api/launch/car endpoint."""
     response = connector.launch_car(verify_car)
     assert response == verify_car_resp
 
 
 def test_retry():
+    """Testing TusDatosConnector class method call to /api/retry endpoint."""
     response = connector.retry(verify_retry)
     assert response == verify_retry_resp
 
 
 def test_results():
+    """Testing TusDatosConnector class method call to /api/results endpoint."""
     response = connector.results(verify_results)
     assert response == verify_results_resp
 
 
 def test_report():
+    """Testing TusDatosConnector class method call to /api/report endpoint."""
     response = connector.report(verify_report)
     assert response == verify_report_resp
 
 
 def test_report_pdf():
+    """Testing TusDatosConnector class method call to /api/report_pdf endpoint."""
     response = connector.report_pdf(verify_report)
     assert response == verify_report_pdf_resp
 
 
 def test_report_nit():
+    """Testing TusDatosConnector class method call to /api/report_nit endpoint."""
     response = connector.report_nit(verify_report_nit)
     assert response == verify_report_resp
 
 
 def test_report_nit_pdf():
+    """Testing TusDatosConnector class method call to /api/report_nit_pdf endpoint."""
     response = connector.report_nit_pdf(verify_report_nit)
     assert response == verify_report_pdf_resp
 
 
 def test_report_json():
+    """Testing TusDatosConnector class method call to /api/report_json endpoint."""
     response = connector.report_json(verify_report)
     assert response == verify_report_json_resp
+
+
+## TODO
+# Still missing the last two methods of the connector.
