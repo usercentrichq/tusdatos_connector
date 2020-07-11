@@ -90,40 +90,40 @@ class TusDatosConnector:
         """
         return self.api_get(f"/api/results/{idarg}")
 
-    def report(self, payload):
+    def report(self, idarg):
         """In this endpoint the report's html is generated. To receive the html you must send a get request
         with the id of the desired report. The id of the report is obtained from the result of the query in
         the endpoint /api/results/{job-id}.
         """
-        return self.api_get(f"/api/report/{payload}")
+        return self.api_get(f"/api/report/{idarg}")
 
-    def report_pdf(self, payload):
+    def report_pdf(self, idarg):
         """This endpoint generates a pdf file of the report. In order to receive the pdf, a get request
         must be sent with the id of the desired report. The id of the report is obtained from the result of
         the query in the endpoint /api/results/{job-id}.
         """
-        return self.api_get(f"/api/report_pdf/{payload}")
+        return self.api_get(f"/api/report_pdf/{idarg}")
 
-    def report_nit(self, payload):
+    def report_nit(self, idarg):
         """This endpoint generates the html of the business report. To receive the html you must send a
         get request with the id of the desired report. The id of the report is obtained from the result
         of the consultation in the endpoint /api/results/{job-id}.
         """
-        return self.api_get(f"/api/report_nit/{payload}")
+        return self.api_get(f"/api/report_nit/{idarg}")
 
-    def report_nit_pdf(self, payload):
+    def report_nit_pdf(self, idarg):
         """This endpoint generates a pdf file of the business report. To receive the pdf file, you must
         send a get request with the id of the desired report. The id of the report is obtained from the
         result of the consultation in the endpoint /api/results/{job-id}.
         """
-        return self.api_get(f"/api/report_nit_pdf/{payload}")
+        return self.api_get(f"/api/report_nit_pdf/{idarg}")
 
-    def report_json(self, payload):
+    def report_json(self, idarg):
         """In this endpoint the report json is generated. To receive the json, you must send a get request
         with the id of the desired report. The id of the report is obtained from the result of the query
         in the endpoint /api/results/{job-id}.
         """
-        return self.api_get(f"/api/report_json/{payload}")
+        return self.api_get(f"/api/report_json/{idarg}")
 
     def get_plans(self):
         """In this endpoint you can check the status of the user's current plan. To know the status of
