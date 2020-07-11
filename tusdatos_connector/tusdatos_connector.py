@@ -32,7 +32,7 @@ class TusDatosConnector:
     def api_post(self, command, payload):
         return self.session.post(f"{self.url}{command}", json=payload).json()
 
-    def api_get(self, command, payload):
+    def api_get(self, command, payload=None):
         return self.session.get(f"{self.url}{command}", params=payload).json()
 
     def launch(self, payload):
@@ -82,13 +82,13 @@ class TusDatosConnector:
             f"/api/retry/{payload.get('id')}", {"typedoc": payload.get("typedoc")}
         )
 
-    def results(self, payload):
+    def results(self, idarg):
         """Consultation of the status of the task currently running. This endpoint returns the status
         and result of a given task in execution. Considerations:
         - The jobid is delivered by the endpoint /api/launch.
         - The jobid has a validity of 4 hours, at the end of this time the endpoint answers that the task is invalid.
         """
-        return self.api_get(f"/api/results/{payload}")
+        return self.api_get(f"/api/results/{idarg}")
 
     def report(self, payload):
         """In this endpoint the report's html is generated. To receive the html you must send a get request
