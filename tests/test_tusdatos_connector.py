@@ -11,6 +11,8 @@ validate_cc = {"doc": 123, "typedoc": "CC", "fechaE": "01/12/2017"}
 verify_cc = {"doc": 123, "typedoc": "CC", "fechaE": "01/12/2017"}
 verify_car = {"doc": 123, "typedoc": "CC", "placa": "ABC123"}
 verify_retry = {"id": "7d1f10483800b5071688e101", "typedoc": "CC"}
+verify_results = "6460fc34-4154-43db-9438-8c5a059304c0"
+verify_report = "5d9e00483800a5071688a101"
 validate_cc_resp = {
     "email": "usuario@pruebas.com",
     "doc": 123,
@@ -57,6 +59,41 @@ verify_car_resp = {
     },
 }
 verify_retry_resp = {"doc": 124, "jobid": "ecbfc775-8d9b-47a0-a2ec-bf0225bb8f6e"}
+verify_results_resp = {
+    "cedula": 123,
+    "error": True,
+    "errores": ["registraduria_mesa", "fosyga", "libretamilitar", "transitobog"],
+    "estado": "finalizado",
+    "hallazgo": True,
+    "hallazgos": "medio",
+    "id": "5d9e00483800a5071688a101",
+    "nombre": "MIGUEL FERNANDO PEREZ GOMEZ",
+    "results": {
+        "Contaduria": False,
+        "Contraloria": False,
+        "EDU1": False,
+        "EDU2": False,
+        "EDU3": False,
+        "Estado cedula": "Error",
+        "Fosyga": "Error",
+        "Interpol": False,
+        "Libreta militar": "Error",
+        "OFAC": False,
+        "PEPS": False,
+        "Policia": False,
+        "Procesos TYBA": False,
+        "Procuraduria": False,
+        "RAMA": False,
+        "RUNT": True,
+        "SIMIT": False,
+        "Sisben": True,
+        "Transito Bogota": "Error",
+    },
+    "time": 48.549164,
+    "typedoc": "CC",
+    "validado": True,
+}
+verify_report_resp = "Reporte en HTML"
 connector = tusdatos_connector.TusDatosConnector(("pruebas", "password"))
 connector.url = "http://docs.tusdatos.co"
 
@@ -92,3 +129,13 @@ def test_car():
 def test_retry():
     response = connector.retry(verify_retry)
     assert response == verify_retry_resp
+
+
+def test_results():
+    response = connector.results(verify_results)
+    assert response == verify_results_resp
+
+
+def test_report():
+    response = connector.report(verify_report)
+    assert response == verify_report_resp
