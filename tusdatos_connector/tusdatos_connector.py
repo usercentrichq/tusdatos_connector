@@ -23,14 +23,17 @@ class TusDatosConnector:
         """
         self.url = "https://dash-board.tusdatos.co"
         self.session = requests.Session()
-        self.session.headers = {"Content-Type": "application/json"}
+        self.session.headers = {
+            "Content-Type": "application/json",
+            "accept": "application/json",
+        }
         self.session.auth = auth
 
     def api_post(self, command, payload):
         return self.session.post(f"{self.url}{command}", json=payload).json()
 
-    def api_get(self, command):
-        return self.session.get(f"{self.url}{command}").json()
+    def api_get(self, command, payload):
+        return self.session.get(f"{self.url}{command}", params=payload).json()
 
     def launch(self, payload):
         """In this endpoint the requests are made to initiate the consultation on the desired document
@@ -52,7 +55,7 @@ class TusDatosConnector:
         :param payload: Required.
                         The parameter recieves a dictionary with the following keys:
                         {"doc": int, "typedoc": type, "fechaE": date as a string DD/MM/AAAA}
-"""
+        """
         return self.api_post("/api/launch/verify", payload)
 
     def launch_car(self, payload):
@@ -75,7 +78,9 @@ class TusDatosConnector:
                         The parameter recieves a dictionary with the following keys:
                         {"id": string, "typedoc": type}
         """
-        return self.api_get(f"/api/retry/{payload}")
+        return self.api_get(
+            f"/api/retry/{payload.get('id')}", {"typedoc": payload.get("typedoc")}
+        )
 
     def results(self, payload):
         """Consultation of the status of the task currently running. This endpoint returns the status
