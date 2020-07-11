@@ -13,11 +13,9 @@ TusDatos Connector
         :target: https://tusdatos-connector.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-
 .. image:: https://pyup.io/repos/github/sebastian-code/tusdatos_connector/shield.svg
      :target: https://pyup.io/repos/github/sebastian-code/tusdatos_connector/
      :alt: Updates
-
 
 
 Python connector to the webservice of Colombian company TusDatos.co
