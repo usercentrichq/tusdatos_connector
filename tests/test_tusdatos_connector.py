@@ -2,8 +2,6 @@
 
 """Tests for `tusdatos_connector` package."""
 
-import pytest
-
 from tusdatos_connector import tusdatos_connector
 
 
@@ -13,6 +11,7 @@ verify_car = {"doc": 123, "typedoc": "CC", "placa": "ABC123"}
 verify_retry = {"id": "7d1f10483800b5071688e101", "typedoc": "CC"}
 verify_results = "6460fc34-4154-43db-9438-8c5a059304c0"
 verify_report = "5d9e00483800a5071688a101"
+verify_report_nit = "5d9e05963817a56d989523c0"
 validate_cc_resp = {
     "email": "usuario@pruebas.com",
     "doc": 123,
@@ -94,6 +93,104 @@ verify_results_resp = {
     "validado": True,
 }
 verify_report_resp = "Reporte en HTML"
+verify_report_pdf_resp = "Reporte en PDF"
+verify_report_json_resp = {
+    "contadores_s": False,
+    "contaduria": False,
+    "contraloria": False,
+    "dest": "static/img/7d3c0000-d87e-403e-ad0a-0000d3be50cb",
+    "email": "usuario@pruebas.com",
+    "error": True,
+    "errores": ["registraduria_mesa", "fosyga", "libretamilitar", "transitobog"],
+    "fecha": "Este reporte fue generado el 09, Oct 2019 a las 11:22AM",
+    "fecha_expedicion": False,
+    "fopep": False,
+    "fosyga": "Error",
+    "genero": "F",
+    "google": [],
+    "hallazgos": "medio",
+    "id": "30276719",
+    "interpol": False,
+    "juzgados_tyba": "",
+    "libretamilitar": "Error",
+    "lista_onu": False,
+    "nombre": "JUAN PEREZ PEREZ",
+    "ofac": False,
+    "otros": False,
+    "peps": False,
+    "peps2": False,
+    "peps_denom": False,
+    "policia": False,
+    "procuraduria": False,
+    "profesion": [],
+    "proveedores_ficticios": False,
+    "rama": {
+        "armeniajepms": False,
+        "barranquillajepms": False,
+        "bogotajepms": False,
+        "bucaramangajepms": False,
+        "bugajepms": False,
+        "calijepms": False,
+        "cartagenajepms": False,
+        "florenciajepms": False,
+        "ibaguejepms": False,
+        "manizalesjepms": False,
+        "medellinjepms": False,
+        "monteriajepms": False,
+        "neivajepms": False,
+        "palmirajepms": False,
+        "pastojepms": False,
+        "pereirajepms": False,
+        "popayanjepms": False,
+        "quibdojepms": False,
+        "tunjajepms": False,
+        "villavicenciojepms": False,
+    },
+    "registraduria_mesa": "Error",
+    "registraduria_solicitud": "Su solicitud del Documento 123 no se encuentra en Trámite.Si solicitó el\n        Trámite de su documento por favor consulte esta base de datos en los próximos días para verificar\n        el estado de su documento, y si aún no ha solicitado la RENOVACION de su documento, por favor\n        solicítela.",
+    "relacionados": [],
+    "rndc": [],
+    "rnmc": "Los datos no son correctos por favor verifique.",
+    "ruaf": "",
+    "rues": "",
+    "runt_app": {
+        "exitoso": True,
+        "licencia": {"licencias": [], "totalLicencias": 0},
+        "multa": {
+            "estadoCancelacion": "NO",
+            "estadoPazSalvo": "SI",
+            "estadoSuspension": "NO",
+            "fechaCancelacion": "No Reporta",
+            "fechaSuspension": "No Reporta",
+            "numeroComparendos": "0",
+            "numeroPazSalvo": "415598045067",
+        },
+        "nombres": "",
+    },
+    "rut": "No se encuentra registrado",
+    "rut_estado": "N/A",
+    "secop": False,
+    "secop2": [],
+    "secop_s": False,
+    "sena": False,
+    "simit": False,
+    "simur": [],
+    "sisben": {
+        "Actualizacion ficha": " 8 de noviembre del 2018",
+        "Actualizacion persona": " 8 de noviembre del 2018",
+        "Antiguedad": "11 meses",
+        "Apellido": "PEREZ PEREZ",
+        "Departamento": "Antioquia",
+        "Estado": "VALIDADO",
+        "Fecha ingreso": " 30 de octubre del 2018",
+        "Ficha": "",
+        "Municipio": "Bolívar",
+        "Nombre": "JUAN",
+        "Puntaje": "40.64",
+    },
+    "sisconmp": {},
+    "transitobog": "Error",
+}
 connector = tusdatos_connector.TusDatosConnector(("pruebas", "password"))
 connector.url = "http://docs.tusdatos.co"
 
@@ -139,3 +236,23 @@ def test_results():
 def test_report():
     response = connector.report(verify_report)
     assert response == verify_report_resp
+
+
+def test_report_pdf():
+    response = connector.report_pdf(verify_report)
+    assert response == verify_report_pdf_resp
+
+
+def test_report_nit():
+    response = connector.report_nit(verify_report_nit)
+    assert response == verify_report_resp
+
+
+def test_report_nit_pdf():
+    response = connector.report_nit_pdf(verify_report_nit)
+    assert response == verify_report_pdf_resp
+
+
+def test_report_json():
+    response = connector.report_json(verify_report)
+    assert response == verify_report_json_resp
