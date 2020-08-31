@@ -1,4 +1,6 @@
 """Main module."""
+import json
+
 import requests
 
 
@@ -30,10 +32,60 @@ class TusDatosConnector:
         self.session.auth = auth
 
     def api_post(self, command, payload):
-        return self.session.post(f"{self.url}{command}", json=payload).json()
+        """Connection handler for POST calls.
+
+        Args:
+            command (String): Especific endpoit to deliver the request.
+            payload (Dict): Dictionary with the required information by TusDatos service.
+
+        Returns:
+            Json: JSON object with the answer from the service, or the error.
+        """
+        try:
+            return self.session.post(f"{self.url}{command}", json=payload).json()
+
+        except (
+            requests.exceptions.ConnectTimeout,
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ) as e:
+            return json.dumps(
+                {
+                    "error": True,
+                    "error message": "There is an error when connecting to TusDatos, try again later.",
+                    "error trace": f"{e}",
+                },
+                sort_keys=True,
+                indent=4,
+            )
 
     def api_get(self, command, payload=None):
-        return self.session.get(f"{self.url}{command}", params=payload).json()
+        """Connection handler for GET calls.
+
+        Args:
+            command (String): Especific endpoit to deliver the request.
+            payload (Dict): Dictionary with the required information by TusDatos service.
+
+        Returns:
+            Json: JSON object with the answer from the service, or the error.
+        """
+        try:
+            return self.session.get(f"{self.url}{command}", params=payload).json()
+
+        except (
+            requests.exceptions.ConnectTimeout,
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ) as e:
+            return json.dumps(
+                {
+                    "error": True,
+                    "error message": "There is an error when connecting to TusDatos, try again later.",
+                    "error trace": f"{e}",
+                },
+                sort_keys=True,
+                indent=4,
+            )
 
     def launch(self, payload):
         """In this endpoint the requests are made to initiate the consultation on the desired document
